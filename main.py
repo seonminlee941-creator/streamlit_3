@@ -273,17 +273,6 @@ if st.session_state.page == 4:
             new_badge = "Jackpot"
             badge_color = "red"
             st.balloons()
-        elif (roll1 + 1 == roll2 and roll2 + 1 == roll3):
-            new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
-            badge_color = "green"
-            st.balloons()
-        elif (roll1 == roll2 == roll3):
-            new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
-            badge_color = "violet"
-            st.balloons()
-        # elif (roll1 == roll2 or roll2 == roll3 or roll1 == roll3):
-        #     new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
-        #     badge_color = "yellow"
         elif [roll1, roll2, roll3].count(7) == 2:
             new_badge = "Double Seven"
             badge_color = "orange"
@@ -292,6 +281,18 @@ if st.session_state.page == 4:
             new_badge = "7"
             badge_color = "yellow"
             st.balloons()
+        if (roll1 + 1 == roll2 and roll2 + 1 == roll3):
+            new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
+            badge_color = "green"
+            st.balloons()
+        if (roll1 == roll2 == roll3):
+            new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
+            badge_color = "violet"
+            st.balloons()
+        # elif (roll1 == roll2 or roll2 == roll3 or roll1 == roll3):
+        #     new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
+        #     badge_color = "yellow"
+
         elif (roll1 == 3 and roll2 == 6 and roll3 == 9):
             new_badge = "369"
             badge_color = "green"
