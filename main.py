@@ -304,6 +304,8 @@ if st.session_state.page == 4:
                 st.session_state.earned_badges.add(new_badge)
                 st.success(f"New badge earned: {new_badge}!")
                 st.balloons()
+            else:
+                st.info(f"Badge already earned: {new_badge}!")
 
     st.divider()
     st.subheader("Your Badges")
