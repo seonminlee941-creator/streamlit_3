@@ -96,7 +96,7 @@ def summarize_text(text, length_option):
 if "page" not in st.session_state:
     st.session_state.page = 2
 
-#main page
+#main page - select
 if st.session_state.page == 1:
     st.title("App")
     pageButtons()
