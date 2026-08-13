@@ -7,19 +7,24 @@ import os
 from pypdf import PdfReader
 from dotenv import load_dotenv
 import time
-
+from datetime import date, timedelta
+import calendar
 
 # API_KEY = os.getenv("GROQ_API_KEY")
 
-if not st.secrets.get("GROQ_API_KEY"):
-    try:
-        load_dotenv()
-        API_KEY = os.getenv("GROQ_API_KEY")
-    except Exception:
-        pass
-    st.info("Add a groq API key")
-else:
+API_KEY = None
+
+try:
     API_KEY = st.secrets["GROQ_API_KEY"]
+except Exception:
+    pass
+
+if not API_KEY:
+    load_dotenv()
+    API_KEY = os.getenv("GROQ_API_KEY")
+
+if not API_KEY:
+    st.error("GROQ_API_KEY가 설정되지 않았어요. .env 파일이나 secrets.toml을 확인해주세요.")
 
 MODEL = "llama-3.1-8b-instant"
 client = Groq(api_key=API_KEY)
@@ -37,6 +42,9 @@ def pageButtons():
     if st.button("Jackpot", use_container_width=True):
         st.session_state.page = 4
         st.rerun()
+    # if st.button("Hangman", use_container_width=True):
+    #     st.session_state.page = 5
+    #     st.rerun()
 
 
 with st.sidebar:
@@ -86,7 +94,7 @@ def summarize_text(text, length_option):
 
 
 if "page" not in st.session_state:
-    st.session_state.page = 1
+    st.session_state.page = 2
 
 #main page
 if st.session_state.page == 1:
@@ -272,7 +280,7 @@ if st.session_state.page == 4:
         if (roll1 == roll2 == roll3 == 7):
             new_badge = "Jackpot"
             badge_color = "red"
-            st.balloons()
+            st.snow()
         elif [roll1, roll2, roll3].count(7) == 2:
             new_badge = "Double Seven"
             badge_color = "orange"
@@ -315,3 +323,6 @@ if st.session_state.page == 4:
     else:
         for badge in st.session_state.earned_badges:
             st.badge(badge, color="violet")
+
+if st.session_state.page == 5:
+    st.title("Hangman")
