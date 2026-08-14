@@ -317,11 +317,11 @@ if st.session_state.page == 4:
         #     new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
         #     badge_color = "yellow"
 
-        elif (roll1 == 3 and roll2 == 6 and roll3 == 9):
-            new_badge = "369"
-            badge_color = "green"
-            st.balloons()
-            m += 10100
+        # elif (roll1 == 3 and roll2 == 6 and roll3 == 9):
+        #     new_badge = "369"
+        #     badge_color = "green"
+        #     st.balloons()
+        #     m += 10100
 
         st.session_state.money += m
 
