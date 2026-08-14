@@ -19,6 +19,8 @@ Features:
   3-6-9: 369 badge
   Earned badges are saved for the session (no duplicate badges)
 
+To go to the main page or to move though each features, use the side bar. 
+
 Requirements:
 1. You'll need a Groq API key. 
   For local development (.env): GROQ_API_KEY=your_api_key_here
