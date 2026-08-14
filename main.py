@@ -42,9 +42,9 @@ def pageButtons():
     if st.button("Jackpot", use_container_width=True):
         st.session_state.page = 4
         st.rerun()
-    # if st.button("Hangman", use_container_width=True):
-    #     st.session_state.page = 5
-    #     st.rerun()
+    if st.button("Baseball game", use_container_width=True):
+        st.session_state.page = 5
+        st.rerun()
 
 
 with st.sidebar:
@@ -323,5 +323,123 @@ if st.session_state.page == 4:
         for badge in st.session_state.earned_badges:
             st.badge(badge, color="violet")
 
+#baseball game
 if st.session_state.page == 5:
-    st.title("")
+    st.title("Baseball Game")
+
+    if st.button("Rules"):
+        st.session_state.page = 6
+        st.rerun()
+
+    st.caption("Match the random 3 number combination! (0~9)")
+
+    def new_game():
+        digits = random.sample(range(1, 10), 3)  # 서로 다른 숫자 3개 뽑기
+        st.session_state.answer = digits
+        st.session_state.history = []  # [(guess, strike, ball), ...]
+        st.session_state.game_over = False
+        st.session_state.tries = 0
+
+    def check_guess(guess_digits, answer_digits):
+        strike = 0
+        ball = 0
+        for i in range(3):
+            if guess_digits[i] == answer_digits[i]:
+                strike += 1
+            elif guess_digits[i] in answer_digits:
+                ball += 1
+        return strike, ball
+
+    if "answer" not in st.session_state:
+        new_game()
+
+    if st.button("New Game", use_container_width=True):
+        new_game()
+        st.rerun()
+    st.caption(f"Number of Tries: {st.session_state.tries}")
+
+    if not st.session_state.game_over:
+        if "current_guess" not in st.session_state:
+            st.session_state.current_guess = ""
+
+        st.write("Enter a 3-number combination (e.g.: 123)")
+
+        display = st.session_state.current_guess.ljust(3, "_")
+        st.markdown(f"<h2 style='text-align:center; letter-spacing: 10px;'>{display}</h2>", unsafe_allow_html=True)
+
+        st.write("")
+        cols = st.columns(3)
+        numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        for i, num in enumerate(numbers):
+            with cols[i % 3]:
+                if st.button(str(num), key=f"num_{num}", use_container_width=True):
+                    if len(st.session_state.current_guess) < 3 and str(num) not in st.session_state.current_guess:
+                        st.session_state.current_guess += str(num)
+                        st.rerun()
+
+        col_clear, col_submit = st.columns(2)
+        with col_clear:
+            if st.button("Clear", use_container_width=True):
+                st.session_state.current_guess = ""
+                st.rerun()
+
+        with col_submit:
+            if st.button("Guess", use_container_width=True):
+                guess_input = st.session_state.current_guess
+                if len(guess_input) != 3:
+                    st.warning("Enter 3 numbers")
+                else:
+                    guess_digits = [int(d) for d in guess_input]
+                    strike, ball = check_guess(guess_digits, st.session_state.answer)
+                    st.session_state.tries += 1
+                    st.session_state.history.append((guess_input, strike, ball))
+
+                    if strike == 3:
+                        st.session_state.game_over = True
+                        st.session_state.won = True
+
+                    st.session_state.current_guess = ""
+                    st.rerun()
+
+    # result
+    if st.session_state.game_over:
+        answer_str = "".join(str(d) for d in st.session_state.answer)
+        st.success(f"Correct! The answer was '{answer_str}' You have guess it in {st.session_state.tries} tries!")
+        st.balloons()
+
+        if st.button("Try Again", use_container_width=True):
+            new_game()
+            st.rerun()
+
+    #tries
+    st.divider()
+    st.subheader("Tries")
+
+    if len(st.session_state.history) == 0:
+        st.write("No tries yet")
+    else:
+        for i, (guess, strike, ball) in enumerate(reversed(st.session_state.history), 1):
+            attempt_num = len(st.session_state.history) - i + 1
+            out = 3 - strike - ball
+            c1, c2, c3, c4 = st.columns([1, 2, 2, 2])
+            with c1:
+                st.write(f"**{guess}**")
+            with c2:
+                st.write(f"{strike} Strike")
+            with c3:
+                st.write(f"{ball} Ball")
+            with c4:
+                st.write(f"{out} Out")
+
+if st.session_state.page == 6:
+    st.title("Rules")
+    st.write("- Match the random 3 number combination! (0~9)")
+    st.write("- **Strike**: The number and location was both correct")
+    st.write("- **Ball**: The number was correct but the location was wrong")
+    st.write("- **Out**: The number does not exist in the combination")
+    st.divider()
+
+    if st.button("Go Back", use_container_width=True):
+        st.session_state.page = 5
+        st.rerun()
