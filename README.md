@@ -18,6 +18,14 @@ Features:
   All three digits match
   3-6-9: 369 badge
   Earned badges are saved for the session (no duplicate badges)
+4. Baseball Game
+  Match the random 3 number combination! (0~9)
+  Enter any combination of three numbers in the keypad and press the "Guess" button
+  Look at the \"Tries\" below and find out what numbers were right
+  Strike**: The number and location was both correct
+  Ball: The number was correct but the location was wrong
+  Out: The number does not exist in the combination
+  Guess until you get every number right!
 
 To go to the main page or to move though each features, use the side bar. 
 
