@@ -24,7 +24,7 @@ if not API_KEY:
     API_KEY = os.getenv("GROQ_API_KEY")
 
 if not API_KEY:
-    st.error("GROQ_API_KEY is not yet found.")
+    st.error("GROQ_API_KEY is not yet found")
 
 MODEL = "llama-3.1-8b-instant"
 client = Groq(api_key=API_KEY)
