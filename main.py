@@ -39,7 +39,7 @@ def pageButtons():
     if st.button("AI Chatbot", use_container_width=True):
         st.session_state.page = 3
         st.rerun()
-    if st.button("Jackpot", use_container_width=True):
+    if st.button("Slot Machine", use_container_width=True):
         st.session_state.page = 4
         st.rerun()
     if st.button("Baseball game", use_container_width=True):
@@ -250,7 +250,7 @@ if st.session_state.page == 3:
         st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 if st.session_state.page == 4:
-    st.title("Jackpot")
+    st.title("Slot Machine")
     st.caption("Push the button to roll!")
 
     minDice = 1
