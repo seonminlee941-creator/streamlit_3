@@ -435,9 +435,12 @@ if st.session_state.page == 5:
 if st.session_state.page == 6:
     st.title("Rules")
     st.write("- Match the random 3 number combination! (0~9)")
+    st.write("Enter any combination of three numbers in the keypad and press the \"Guess\" button")
+    st.write("Look at the \"Tries\" below and find out what numbers were right")
     st.write("- **Strike**: The number and location was both correct")
     st.write("- **Ball**: The number was correct but the location was wrong")
     st.write("- **Out**: The number does not exist in the combination")
+    st.write("Guess until you get every number right!")
     st.divider()
 
     if st.button("Go Back", use_container_width=True):
