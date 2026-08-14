@@ -83,7 +83,6 @@ def summarize_text(text, length_option):
     Text to summarize:
     {text[:12000]}
     """
-    # 너무 긴 텍스트는 잘라서 보내기
 
     response = client.chat.completions.create(
         model=MODEL,
@@ -325,4 +324,4 @@ if st.session_state.page == 4:
             st.badge(badge, color="violet")
 
 if st.session_state.page == 5:
-    st.title("Hangman")
+    st.title("")
