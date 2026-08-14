@@ -268,8 +268,7 @@ if st.session_state.page == 4:
 
     if st.button("Roll"):
 
-        st.session_state.money -= 100
-        badge_slot.badge("Money Left: " + str(st.session_state.money), color="green")  # 같은 자리를 덮어씀
+
 
         roll1 = random.randint(minDice, maxDice)
         roll2 = random.randint(minDice, maxDice)
@@ -293,27 +292,27 @@ if st.session_state.page == 4:
             new_badge = "Jackpot"
             badge_color = "red"
             st.snow()
-            m = 10000
+            m = 100100
         elif [roll1, roll2, roll3].count(7) == 2:
             new_badge = "Double Seven"
             badge_color = "orange"
             st.balloons()
-            m = 1000
+            m = 600
         elif (roll1 == 7 or roll2 == 7 or roll3 == 7):
             new_badge = "7"
             badge_color = "yellow"
             st.balloons()
-            m = 100
+            m = 200
         if (roll1 + 1 == roll2 and roll2 + 1 == roll3):
             new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
             badge_color = "green"
             st.balloons()
-            m = 1000
+            m = 1100
         if (roll1 == roll2 == roll3):
             new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
             badge_color = "violet"
             st.balloons()
-            m = 1000
+            m = 1100
         # elif (roll1 == roll2 or roll2 == roll3 or roll1 == roll3):
         #     new_badge = str(roll1 * 100 + roll2 * 10 + roll3)
         #     badge_color = "yellow"
@@ -322,18 +321,22 @@ if st.session_state.page == 4:
             new_badge = "369"
             badge_color = "green"
             st.balloons()
-            m = 10000
+            m += 10100
 
         st.session_state.money += m
+
+        st.session_state.money -= 100
+        badge_slot.badge("Money Left: " + str(st.session_state.money), color="green")  # 같은 자리를 덮어씀
+
 
 
         if new_badge is not None:
             if new_badge not in st.session_state.earned_badges:
                 st.session_state.earned_badges.add(new_badge)
-                st.success(f"New badge earned: {new_badge}!\n Money earned: {m}" )
+                st.success(f"New badge earned: {new_badge}!\n Money earned: {m-100}" )
                 st.balloons()
             else:
-                st.info(f"Badge already earned: {new_badge}!\n Money earned: {m}")
+                st.info(f"Badge already earned: {new_badge}!\n Money earned: {m-100}")
 
     st.divider()
     st.subheader("Your Badges")
@@ -343,6 +346,7 @@ if st.session_state.page == 4:
     else:
         for badge in st.session_state.earned_badges:
             st.badge(badge, color="violet")
+
 
 #baseball game
 if st.session_state.page == 5:
